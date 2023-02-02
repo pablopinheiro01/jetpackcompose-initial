@@ -1,15 +1,22 @@
 package br.com.pablo.aluvery
 
+import android.content.res.Configuration.*
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import br.com.pablo.aluvery.ui.theme.AluveryTheme
 
 class MainActivity : ComponentActivity() {
@@ -17,27 +24,32 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AluveryTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting("Android")
+                Surface {
+                    ProductItem()
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
-    AluveryTheme {
-        Greeting("Android")
+fun ProductItem() {
+    Column(){
+        Box(
+            Modifier
+                .height(50.dp)
+                .background(Color.Blue)
+                .width(50.dp)
+        )
+        Image(
+            painter = painterResource(id = R.drawable.ic_launcher_background),
+            contentDescription = "teste"
+        )
+        Text(text = "Texto 1")
+        Text(text = "Texto 2")
+
+
     }
 }
