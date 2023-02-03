@@ -10,8 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment.Companion.BottomCenter
-import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
@@ -25,7 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.pablo.aluvery.ui.theme.*
 
-class MainActivity : ComponentActivity() {
+//activity para registrar os desafios
+class ChalengeActivity: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -39,14 +39,8 @@ class MainActivity : ComponentActivity() {
 }
 
 
-@Preview(showBackground = true)
 @Composable
-fun ProductSectionPreview() {
-    ProductSection()
-}
-
-@Composable
-fun ProductSection() {
+fun ProductSectionDesafio04() {
     Column() {
         Text(
             text = "Promoções",
@@ -68,21 +62,15 @@ fun ProductSection() {
         ) {
             Spacer(modifier = Modifier)
             ProductItem()
-            ProductItem()
-            ProductItem()
+            ProductItem(LoremIpsum((0..100).random()).values.first().toString())
+            ProductItem(LoremIpsum((0..10).random()).values.first())
             Spacer(modifier = Modifier)
         }
     }
 }
 
-@Preview()
 @Composable
-fun ProductItemPreview() {
-    ProductItem()
-}
-
-@Composable
-fun DescriptionProductItem(desc: String) {
+fun DescriptionProductItemDesafio04(desc: String) {
     Text(
         modifier = Modifier
             .background(color = Purple500)
@@ -92,8 +80,14 @@ fun DescriptionProductItem(desc: String) {
     )
 }
 
+@Preview
 @Composable
-fun ProductItem(descript : String? = null) {
+fun DescriptionProductItemPreview04() {
+    DescriptionProductItem(LoremIpsum((0..100).random()).values.first())
+}
+
+@Composable
+fun ProductItemDesafio04(descript : String? = null) {
     Surface(
         shape = RoundedCornerShape(15.dp),
         elevation = 4.dp,
@@ -122,7 +116,7 @@ fun ProductItem(descript : String? = null) {
                         .size(imageSize)
                         .offset(y = imageSize / 2)
                         .clip(shape = CircleShape)
-                        .align(BottomCenter)
+                        .align(Alignment.BottomCenter)
                 )
             }
             Spacer(modifier = Modifier.height(imageSize / 2))
@@ -141,7 +135,62 @@ fun ProductItem(descript : String? = null) {
                     fontWeight = FontWeight(400)
                 )
             }
+            descript?.let { desc ->
+                Column(
+                    Modifier
+                        .padding(top = 5.dp)
+                        .fillMaxHeight()
+                ) {
+                    DescriptionProductItemDesafio04(desc)
+                }
+            }
         }
     }
 }
 
+//@Preview
+@Composable
+fun DesafioNumberTwo() {
+    Surface {
+        Row(
+            Modifier
+                .widthIn(250.dp, 400.dp)
+                .height(200.dp)
+        ) {
+            val imageSize = 100.dp
+            Box(
+                Modifier
+                    .width(imageSize)
+                    .background(
+                        brush = Brush.verticalGradient(colors = listOf(Purple200, Teal200)),
+                    )
+                    .fillMaxHeight()
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_launcher_background),
+                    contentDescription = "teste",
+                    modifier = Modifier
+                        .size(imageSize)
+                        .offset(x = imageSize / 2)
+                        .border
+                            (
+                            width = 2.dp,
+                            brush = Brush.horizontalGradient(colors = listOf(Purple700, Teal200)),
+                            shape = CircleShape
+                        )
+                        .clip(shape = CircleShape)
+                        .align(Alignment.Center)
+                )
+            }
+            Spacer(modifier = Modifier.width(imageSize / 2))
+            Text(
+                text = LoremIpsum(words = 50).values.first(),
+                modifier = Modifier.padding(18.dp),
+                fontSize = 18.sp,
+                fontWeight = FontWeight(700),
+                maxLines = 6,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+    }
+}
