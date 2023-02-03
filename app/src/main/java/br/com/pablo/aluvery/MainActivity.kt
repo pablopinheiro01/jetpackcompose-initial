@@ -31,13 +31,35 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AluveryTheme {
-                Surface {
-                    ProductSectionPreview()
-                }
+            App()
+        }
+    }
+}
+
+@Composable
+fun App() {
+    AluveryTheme {
+        Surface {
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Spacer(modifier = Modifier)
+                ProductSection()
+                ProductSection()
+                ProductSection()
+                Spacer(modifier = Modifier)
             }
         }
     }
+}
+
+@Preview(showSystemUi = true)
+@Composable
+fun AppPreview() {
+    App()
 }
 
 
@@ -52,15 +74,14 @@ fun ProductSection() {
     Column() {
         Text(
             text = "Promoções",
-            Modifier.padding(start = 16.dp, top = 16.dp, bottom = 16.dp),
+            Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
             fontSize = 20.sp,
             fontWeight = FontWeight(400)
         )
         Row(
             Modifier
                 .padding(
-                    top = 8.dp,
-                    bottom = 16.dp
+                    top = 8.dp
                 )
                 .fillMaxWidth()
                 .horizontalScroll(
@@ -69,9 +90,28 @@ fun ProductSection() {
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Spacer(modifier = Modifier)
-            ProductItem(Product("Hamburguer",22.99.toBigDecimal().toBrazilianCurrency(),R.drawable.burger))
-            ProductItem(Product("Pizza",80.00.toBigDecimal().toBrazilianCurrency(),R.drawable.pizza))
-            ProductItem(Product("Batata Frita",20.00.toBigDecimal().toBrazilianCurrency(), R.drawable.fries))
+            ProductItem(
+                Product(
+                    "Hamburguer",
+                    22.99.toBigDecimal().toBrazilianCurrency(),
+                    R.drawable.burger,
+                    LoremIpsum(50).values.first()
+                )
+            )
+            ProductItem(
+                Product(
+                    "Pizza",
+                    80.00.toBigDecimal().toBrazilianCurrency(),
+                    R.drawable.pizza
+                )
+            )
+            ProductItem(
+                Product(
+                    "Batata Frita",
+                    20.00.toBigDecimal().toBrazilianCurrency(),
+                    R.drawable.fries
+                )
+            )
             Spacer(modifier = Modifier)
         }
     }
@@ -80,7 +120,13 @@ fun ProductSection() {
 @Preview()
 @Composable
 fun ProductItemPreview() {
-    ProductItem(Product(name = LoremIpsum(50).values.first(), price = 14.99.toBigDecimal().toBrazilianCurrency(), R.drawable.ic_launcher_background))
+    ProductItem(
+        Product(
+            name = LoremIpsum(50).values.first(),
+            price = 14.99.toBigDecimal().toBrazilianCurrency(),
+            R.drawable.ic_launcher_background
+        )
+    )
 }
 
 @Composable
@@ -102,7 +148,7 @@ fun ProductItem(product: Product) {
     ) {
         Column(
             Modifier
-                .heightIn(250.dp, 300.dp)
+                .heightIn(250.dp, 255.dp)
                 .width(200.dp)
                 .verticalScroll(
                     rememberScrollState()
@@ -143,6 +189,13 @@ fun ProductItem(product: Product) {
                     fontSize = 14.sp,
                     fontWeight = FontWeight(400)
                 )
+            }
+            product.descricao?.let { desc ->
+                Column(
+                    Modifier
+                ) {
+                    DescriptionProductItem(desc)
+                }
             }
         }
     }
