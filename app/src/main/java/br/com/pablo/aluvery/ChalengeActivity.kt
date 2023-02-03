@@ -61,7 +61,6 @@ fun ProductSectionDesafio04() {
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Spacer(modifier = Modifier)
-            ProductItem()
             ProductItemDesafio04(LoremIpsum((0..100).random()).values.first().toString())
             ProductItemDesafio04(LoremIpsum((0..10).random()).values.first())
             Spacer(modifier = Modifier)
