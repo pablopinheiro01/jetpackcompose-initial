@@ -62,8 +62,8 @@ fun ProductSectionDesafio04() {
         ) {
             Spacer(modifier = Modifier)
             ProductItem()
-            ProductItem(LoremIpsum((0..100).random()).values.first().toString())
-            ProductItem(LoremIpsum((0..10).random()).values.first())
+            ProductItemDesafio04(LoremIpsum((0..100).random()).values.first().toString())
+            ProductItemDesafio04(LoremIpsum((0..10).random()).values.first())
             Spacer(modifier = Modifier)
         }
     }
@@ -83,7 +83,7 @@ fun DescriptionProductItemDesafio04(desc: String) {
 @Preview
 @Composable
 fun DescriptionProductItemPreview04() {
-    DescriptionProductItem(LoremIpsum((0..100).random()).values.first())
+    DescriptionProductItemDesafio04(LoremIpsum((0..100).random()).values.first())
 }
 
 @Composable
